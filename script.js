@@ -70,11 +70,17 @@ function configuraBotoes(array) {
   });
 }
 
+function limparCarrinho() {
+  const ol = document.querySelector('.cart__items');
+  ol.innerHTML = '';
+}
+
 window.onload = async () => {
   const arrayDados = await fetchProducts('computador'); // dados no formato json
   const arrayDadosResults = await arrayDados.results; // parte results dos dados recebidos
   const arrayDadosSelecao = selecaoDados(arrayDadosResults); // retorna um array com os dados que interessam: sku (id), name, salePrice (price) e image (thumbnail)
   // const itemsSection = document.querySelector('.items'); // pega o local onde irá cada item
   adicionaItens(arrayDadosSelecao); // adiciona cada item no items, mostrando assim os itens a venda
-  configuraBotoes(arrayDadosSelecao); // adiciona o adEventListener a cada botão
+  configuraBotoes(arrayDadosSelecao); // adiciona o addEventListener a cada botão dos itens
+  document.querySelector('.empty-cart').addEventListener('click', limparCarrinho); // adiciona o addEventlistener ao botao de limpar a lista
 };
