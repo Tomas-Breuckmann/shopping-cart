@@ -28,7 +28,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  // https://bobbyhadz.com/blog/javascript-remove-element-from-dom-on-click
   event.target.remove();
 }
 
@@ -75,9 +75,23 @@ function limparCarrinho() {
   ol.innerHTML = '';
 }
 
+function loading(comando) {
+  if (comando === 'inicio') {
+    const informa = document.createElement('div');
+    informa.className = 'loading';
+    informa.innerText = 'CARREGANDO ...';
+    document.querySelector('.items').appendChild(informa);
+  } else {
+    const load = document.querySelector('.loading');
+    load.parentNode.removeChild(load);
+  }
+}
+
 window.onload = async () => {
+  loading('inicio');
   const arrayDados = await fetchProducts('computador'); // dados no formato json
-  const arrayDadosResults = await arrayDados.results; // parte results dos dados recebidos
+  loading('fim');
+  const arrayDadosResults = arrayDados.results; // parte results dos dados recebidos
   const arrayDadosSelecao = selecaoDados(arrayDadosResults); // retorna um array com os dados que interessam: sku (id), name, salePrice (price) e image (thumbnail)
   // const itemsSection = document.querySelector('.items'); // pega o local onde irá cada item
   adicionaItens(arrayDadosSelecao); // adiciona cada item no items, mostrando assim os itens a venda
