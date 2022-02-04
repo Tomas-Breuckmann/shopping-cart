@@ -30,6 +30,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // https://bobbyhadz.com/blog/javascript-remove-element-from-dom-on-click
   event.target.remove();
+  saveCartItems();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -58,14 +59,13 @@ function adicionaItens(array) {
 function configuraBotoes(array) {
   const botoes = document.querySelectorAll('.item__add'); // array com todos os elementos de classe item_add, ou seja, os botões
   const carrinho = document.querySelector('.cart__items');
-  console.log(carrinho);
   botoes.forEach((item, index) => {
     const { sku, name, salePrice } = array[index];
     item.addEventListener('click', () => {
       const li = createCartItemElement({ sku, name, salePrice });
-      console.log(li);
-      console.log(carrinho);
+      li.className = 'noCarrinho';
       carrinho.appendChild(li);
+      saveCartItems();
     });
   });
 }
@@ -97,4 +97,5 @@ window.onload = async () => {
   adicionaItens(arrayDadosSelecao); // adiciona cada item no items, mostrando assim os itens a venda
   configuraBotoes(arrayDadosSelecao); // adiciona o addEventListener a cada botão dos itens
   document.querySelector('.empty-cart').addEventListener('click', limparCarrinho); // adiciona o addEventlistener ao botao de limpar a lista
+  getSavedCartItems();
 };
