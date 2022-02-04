@@ -9,7 +9,7 @@ const getSavedCartItems = () => {
         console.log(element.innerText);
         li.innerText = element;
         li.className = 'noCarrinho';
-        li.addEventListener('click', cartItemClickListener);
+        li.addEventListener('click', (event) => event.target.remove());
         // return li;        
         const carrinho = document.querySelector('.cart__items');
         carrinho.appendChild(li);
