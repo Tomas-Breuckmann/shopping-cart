@@ -19,7 +19,6 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
   return section;
 }
 
@@ -27,10 +26,20 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+async function somaValores() {
+  const listaItens = Array.from(document.querySelectorAll('.cart__item'));
+  const valoresSomarString = listaItens.map((el) => el.innerText.split('$'));
+  const valoresSomar = valoresSomarString.map((el) => parseFloat(el[el.length - 1]));
+  const soma = valoresSomar.reduce((som, numero) => som + numero, 0);
+  document.querySelector('.total-price').innerText = `${soma}`;
+  // return soma.toFixed(2);
+}
+
 function cartItemClickListener(event) {
   // https://bobbyhadz.com/blog/javascript-remove-element-from-dom-on-click
   event.target.remove();
   saveCartItems();
+  somaValores();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -63,9 +72,10 @@ function configuraBotoes(array) {
     const { sku, name, salePrice } = array[index];
     item.addEventListener('click', () => {
       const li = createCartItemElement({ sku, name, salePrice });
-      li.className = 'noCarrinho';
+      // li.className = 'noCarrinho';
       carrinho.appendChild(li);
       saveCartItems();
+      somaValores();
     });
   });
 }

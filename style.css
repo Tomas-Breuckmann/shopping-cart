@@ -140,9 +140,9 @@ body {
   overflow-y: scroll;
 }
 
-.cart__item {
+.noCarrinho {
   border: 1px solid black;
-  padding: 5px;
+  padding: 10px;
 }
 
 .empty-cart {
