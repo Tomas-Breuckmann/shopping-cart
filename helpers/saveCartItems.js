@@ -5,8 +5,7 @@ const lista = [];
 for (let ind = 0; ind < itensDoCarrinho.length; ind += 1) {
   lista.push(itensDoCarrinho[ind].innerText);
 }
-
-localStorage.setItem('itensDoCarrinho', JSON.stringify(lista));
+localStorage.setItem('cartItems', JSON.stringify(lista));
 };
 
 if (typeof module !== 'undefined') {

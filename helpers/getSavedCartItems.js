@@ -1,6 +1,6 @@
 const getSavedCartItems = () => {
   // seu código aqui
-  const itensDoCarrinho = JSON.parse(localStorage.getItem('itensDoCarrinho'));
+  const itensDoCarrinho = JSON.parse(localStorage.getItem('cartItems'));
   if (itensDoCarrinho !== null) {
       itensDoCarrinho.forEach((element) => {
         const li = document.createElement('li');
